@@ -1,0 +1,28 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class IntStorage												//Класс для хранения значений типа int
+{
+	public int CurrentValue { get; set; }							//Хранимое значение
+
+	public IntStorage() 
+	{
+		CurrentValue = 0;
+	}
+
+	public IntStorage(int value)
+	{
+		CurrentValue = value;
+	}
+
+	public void SetValue(int value)										//Изменить значение
+	{
+		CurrentValue += value;
+	}
+
+	public int GetValue()												//Получить значение
+	{
+		return CurrentValue;
+	}
+}

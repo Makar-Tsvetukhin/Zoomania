@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Animal
 {
-    [CreateAssetMenu(fileName = nameof(Panda_Level_3_Config), menuName = "Animals/" + nameof(Panda_Level_3_Config))]
+    [CreateAssetMenu(fileName = nameof(Panda_Level_3_Config), menuName = "Animals/Panda" + nameof(Panda_Level_3_Config))]
     public class Panda_Level_3_Config : ScriptableObject
     {
         [field: SerializeField] public int ClicksToCreate { get; set; }

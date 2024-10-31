@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Android;
 
-public class Timer : MonoBehaviour
+public class Timer
 {
 	public float MaxTime { get; private set; }
 	public float CurrentTime { get; private set; }
@@ -34,7 +34,7 @@ public class Timer : MonoBehaviour
 
 	public void Continue() => Pause = false;
 
-	private void Tick(float time)
+	public void Tick(float time)
 	{
 		if (TimerIsEnd || Pause) return;
 
