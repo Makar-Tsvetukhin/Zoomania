@@ -1,0 +1,46 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class IncomeResource																// ласс, который отвечает за получение ресурсов через врем€ и через клики
+{
+	public int IncomePerSecondValue { get; set; }                                       //ѕеременна€, котора€ отвечает за количество пассивно получаемых ресурсов (через каждое N количество секунд)
+	public int IncomePerClickValue { get; set; }                                        //ѕеременна€, котора€ отвечает за количество активно получаемых русурсов (ѕри каждом нажатии)
+
+	public IntStorage Resource = new IntStorage();										//ѕеременна€, котора€ хранит в себе текущее количество ресурсов игрока
+
+	public event Action OnTick;															//—обытие, вызываемое каждый тик
+	public event Action OnIncomePerSecond;												//—обытие, вызываемое когда происходит пассивное получение ресурсов
+
+	public Timer _resourceTimer;														//ѕеременна€, котора€ отвечает за врем€ пассивно получаемых ресурсов
+
+	public IncomeResource(int incomepersecondvalue, int incomeperclickvalue)
+	{
+		IncomePerSecondValue = incomepersecondvalue;
+		IncomePerClickValue = incomeperclickvalue;
+
+		_resourceTimer = new Timer(3);
+
+		_resourceTimer.OnTimerEnd += IncomePerSecond;
+	}
+
+
+	public void IncomePerSecond()															//‘ункци€, котора€ срабатывает при пассивном получении ресурсов (через каждое N количество секунд)
+	{
+		Resource.SetValue(IncomePerSecondValue * 3);
+		_resourceTimer.ResetTimer(false);
+		OnIncomePerSecond?.Invoke();
+	}
+
+	public void IncomePerClick()                                                            //‘ункци€, котора€ срабатывает при активном получении ресурсов (ѕри каждом нажатии)
+	{		
+
+	}
+
+	public void Update()																	//‘ункци€, срабатывающа€ каждый кадр, котора€ отвечает за работу таймера
+	{
+		_resourceTimer.Tick(Time.deltaTime);
+		OnTick?.Invoke();
+	}
+}
