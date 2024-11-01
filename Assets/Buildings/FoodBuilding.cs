@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class FoodBuilding : MonoBehaviour                                                           // ласс, который прикрепл€етс€ к кормушке
+public class FoodBuilding : MonoBehaviour, IPointerClickHandler                                     // ласс, который прикрепл€етс€ к кормушке
 																									//ѕо идее работает, но нужно сделать систему уровней из которой будут братьс€ значени€ дл€ количества ресурсов в секунду и при нажатии
-{                                                                                                   //“акже надо реализовать механику нажати€
+{
 	public int CurrentLevelNumber { get; set; }                                                     //ѕеременна€, отвечающа€ за текущий уровень кормушки
 
 	public int ResourcePerSecond { get; set; }                                                      //ѕеременна€, отвечающа€ за пассивный доход кормушки
@@ -33,9 +34,9 @@ public class FoodBuilding : MonoBehaviour                                       
 		IncomeFood.IncomePerClick();
 	}
 
-	void OnAwake()
+	public void OnPointerClick(PointerEventData data)
 	{
-
+		IncomePerClick();
 	}
 
 	void Update()                                                                                   //‘ункци€, срабатывающа€ каждый кадр, котора€ отвечает за работу таймера

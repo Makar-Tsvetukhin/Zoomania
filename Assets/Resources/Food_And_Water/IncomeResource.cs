@@ -12,6 +12,7 @@ public class IncomeResource																//Класс, который отвечает за получени
 
 	public event Action OnTick;															//Событие, вызываемое каждый тик
 	public event Action OnIncomePerSecond;												//Событие, вызываемое когда происходит пассивное получение ресурсов
+	public event Action OnIncomePerClick;												//Событие, вызываемое когда происходит активное получение ресурсов (нажатие)
 
 	public Timer _resourceTimer;														//Переменная, которая отвечает за время пассивно получаемых ресурсов
 
@@ -34,8 +35,9 @@ public class IncomeResource																//Класс, который отвечает за получени
 	}
 
 	public void IncomePerClick()                                                            //Функция, которая срабатывает при активном получении ресурсов (При каждом нажатии)
-	{		
-
+	{
+		Resource.SetValue(IncomePerClickValue);
+		OnIncomePerClick?.Invoke();
 	}
 
 	public void Update()																	//Функция, срабатывающая каждый кадр, которая отвечает за работу таймера
