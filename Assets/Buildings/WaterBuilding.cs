@@ -2,10 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class WaterBuilding : MonoBehaviour															//Класс, который прикрепляется к поилке
+public class WaterBuilding : MonoBehaviour, IPointerClickHandler                                    //Класс, который прикрепляется к поилке
 																									//По идее работает, но нужно сделать систему уровней из которой будут браться значения для количества ресурсов в секунду и при нажатии
-{																									//Также надо реализовать механику нажатия
+{
 	public int CurrentLevelNumber { get; set; }														//Переменная, отвечающая за текущий уровень поилки
 
 	public int ResourcePerSecond { get; set; }														//Переменная, отвечающая за пассивный доход поилки
@@ -34,10 +35,11 @@ public class WaterBuilding : MonoBehaviour															//Класс, который прикре
 		IncomeWater.IncomePerClick();
 	}
 
-	void OnAwake()
+	public void OnPointerClick(PointerEventData data)
 	{
-
+		IncomePerClick();
 	}
+
 
 	void Update()                                                                                   //Функция, срабатывающая каждый кадр, которая отвечает за работу таймера
 	{
