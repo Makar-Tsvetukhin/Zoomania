@@ -226,6 +226,7 @@ GameObject:
   - component: {fileID: 395844006}
   - component: {fileID: 395844005}
   - component: {fileID: 395844007}
+  - component: {fileID: 395844008}
   m_Layer: 0
   m_Name: Animal
   m_TagString: Untagged
@@ -312,6 +313,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 392af8ae57bea86469d0a3b5ee764d61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &395844008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 395844003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1ec262943e69224cb2145aa194a6056, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsDoAction: 0
 --- !u!1 &757142597
 GameObject:
   m_ObjectHideFlags: 0
@@ -392,7 +406,6 @@ GameObject:
   - component: {fileID: 926688442}
   - component: {fileID: 926688441}
   - component: {fileID: 926688440}
-  - component: {fileID: 926688439}
   m_Layer: 5
   m_Name: "\u041F\u043E\u0438\u043B\u043A\u0430"
   m_TagString: Untagged
@@ -420,18 +433,6 @@ RectTransform:
   m_AnchoredPosition: {x: -93.3, y: -149.6}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &926688439
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 926688437}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6da044e55a91284ea6d78daf24f09f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &926688440
 MonoBehaviour:
   m_ObjectHideFlags: 0

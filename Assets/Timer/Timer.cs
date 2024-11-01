@@ -30,6 +30,13 @@ public class Timer
 		Pause = pause;
 	}
 
+	public void SetMaxTimeAndReset(int maxtime)
+	{
+		TimerIsEnd = false;
+		CurrentTime = 0;
+		MaxTime = maxtime;
+	}
+
 	public void SetPause() => Pause = true;
 
 	public void Continue() => Pause = false;
