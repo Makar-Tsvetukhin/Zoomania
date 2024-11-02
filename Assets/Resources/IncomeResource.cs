@@ -14,23 +14,23 @@ public class IncomeResource																//Класс, который отвечает за получени
 	public event Action OnIncomePerSecond;												//Событие, вызываемое когда происходит пассивное получение ресурсов
 	public event Action OnIncomePerClick;												//Событие, вызываемое когда происходит активное получение ресурсов (нажатие)
 
-	public Timer _resourceTimer;														//Переменная, которая отвечает за время пассивно получаемых ресурсов
+	public Timer ResourceTimer;														//Переменная, которая отвечает за время пассивно получаемых ресурсов
 
 	public IncomeResource(int incomepersecondvalue, int incomeperclickvalue)
 	{
 		IncomePerSecondValue = incomepersecondvalue;
 		IncomePerClickValue = incomeperclickvalue;
 
-		_resourceTimer = new Timer(3);
+		ResourceTimer = new Timer(3);
 
-		_resourceTimer.OnTimerEnd += IncomePerSecond;
+		ResourceTimer.OnTimerEnd += IncomePerSecond;
 	}
 
 
 	public void IncomePerSecond()															//Функция, которая срабатывает при пассивном получении ресурсов (через каждое N количество секунд)
 	{
 		Resource.SetValue(IncomePerSecondValue * 3);
-		_resourceTimer.ResetTimer(false);
+		ResourceTimer.ResetTimer(false);
 		OnIncomePerSecond?.Invoke();
 	}
 
@@ -42,7 +42,7 @@ public class IncomeResource																//Класс, который отвечает за получени
 
 	public void Update()																	//Функция, срабатывающая каждый кадр, которая отвечает за работу таймера
 	{
-		_resourceTimer.Tick(Time.deltaTime);
+		ResourceTimer.Tick(Time.deltaTime);
 		OnTick?.Invoke();
 	}
 }

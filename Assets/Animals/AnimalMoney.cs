@@ -4,35 +4,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class FoodBuilding : MonoBehaviour, IPointerClickHandler                                     // ласс, который прикрепл€етс€ к кормушке
-																									//ѕо идее работает, но нужно сделать систему уровней из которой будут братьс€ значени€ дл€ количества ресурсов в секунду и при нажатии
+public class AnimalMoney : MonoBehaviour
 {
-
 	public Level CurrentLevel = new Level(1, 1, 1, 1);                                              //ѕеременна€ отвечающа€ за уровень и количество получаемых ресурсов
 
-	public IncomeResource IncomeFood = new IncomeResource(1, 1);                                    //ѕеременна€ отвечающа€ за получение ресурсов
+	public IncomeResource IncomeMoney = new IncomeResource(1, 1);                                    //ѕеременна€ отвечающа€ за получение ресурсов
 
 	public event Action OnChange;
 
-
 	private void Start()
 	{
-		IncomeFood.OnIncomePerSecond += IncomePerSecond;
-		IncomeFood.ResourceTimer.OnTimerEnd += Change;
-		CurrentLevel.LevelUp();
-		UpdateData();
+		IncomeMoney.OnIncomePerSecond += IncomePerSecond;
+		IncomeMoney.ResourceTimer.OnTimerEnd += Change;
 	}
-
 
 	public void IncomePerSecond()                                                                   //‘ункци€, котора€ срабатывает при пассивном получении ресурсов (через каждое N количество секунд)
 	{
-	
-		//Debug.Log($" оличество еды: {IncomeFood.Resource.GetValue()}");
+		//Debug.Log($" оличество монет: {IncomeMoney.Resource.GetValue()}");
 	}
 
 	public void IncomePerClick()                                                                    //‘ункци€, котора€ срабатывает при активном получении ресурсов (ѕри каждом нажатии)
 	{
-		IncomeFood.IncomePerClick();
+		IncomeMoney.IncomePerClick();
 		OnChange?.Invoke();
 	}
 
@@ -46,16 +39,15 @@ public class FoodBuilding : MonoBehaviour, IPointerClickHandler                 
 		OnChange?.Invoke();
 		UpdateData();
 	}
+
 	public void UpdateData()                                                                        //‘ункци€, котора€ обновл€ет значени€ получаемых ресурсов
 	{
-		IncomeFood.IncomePerSecondValue = CurrentLevel.IncomePerSecondValue;
-		IncomeFood.IncomePerClickValue = CurrentLevel.IncomePerClickValue;
+		IncomeMoney.IncomePerSecondValue = CurrentLevel.IncomePerSecondValue;
+		IncomeMoney.IncomePerClickValue = CurrentLevel.IncomePerClickValue;
 	}
-
 
 	void Update()                                                                                   //‘ункци€, срабатывающа€ каждый кадр, котора€ отвечает за работу таймера
 	{
-		IncomeFood.Update();
+		IncomeMoney.Update();
 	}
-
 }
