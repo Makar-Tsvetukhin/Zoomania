@@ -7,32 +7,31 @@ using UnityEngine.EventSystems;
 public class WaterBuilding : MonoBehaviour, IPointerClickHandler                                    // ласс, который прикрепл€етс€ к поилке
 																									//ѕо идее работает, но нужно сделать систему уровней из которой будут братьс€ значени€ дл€ количества ресурсов в секунду и при нажатии
 {
-	public int CurrentLevelNumber { get; set; }														//ѕеременна€, отвечающа€ за текущий уровень поилки
+	public IncomeResource IncomeWater = new IncomeResource(2, 1);                                   //ѕеременна€ отвечающа€ за получение ресурсов
 
-	public int ResourcePerSecond { get; set; }														//ѕеременна€, отвечающа€ за пассивный доход поилки
+	public Level CurrentLevel = new Level(1, 1, 1, 1);                                              //ѕеременна€ отвечающа€ за уровень и количество получаемых ресурсов
 
-	public int ResourcePerClick { get; set; }                                                       //ѕеременна€, отвечающа€ за активный доход поилки
+	public event Action OnChange;
 
-	public IncomeResource IncomeWater = new IncomeResource(2, 1);									//ѕеременна€ отвечающа€ за получение ресурсов
 
-	public WaterBuilding() 
+	private void Start() 
 	{
-		ResourcePerSecond = 1;
-		ResourcePerClick = 1;
-
 		IncomeWater.OnIncomePerSecond += IncomePerSecond;
+		IncomeWater.ResourceTimer.OnTimerEnd += Change;
+		CurrentLevel.LevelUp();
+		UpdateData();
 	}
-
 
 
 	public void IncomePerSecond()                                                                   //‘ункци€, котора€ срабатывает при пассивном получении ресурсов (через каждое N количество секунд)
 	{
-		Debug.Log($" оличество воды: {IncomeWater.Resource.GetValue()}");
+		//Debug.Log($" оличество воды: {IncomeWater.Resource.GetValue()}");
 	}
 
 	public void IncomePerClick()                                                                    //‘ункци€, котора€ срабатывает при активном получении ресурсов (ѕри каждом нажатии)
 	{
 		IncomeWater.IncomePerClick();
+		OnChange?.Invoke();
 	}
 
 	public void OnPointerClick(PointerEventData data)
@@ -40,6 +39,17 @@ public class WaterBuilding : MonoBehaviour, IPointerClickHandler                
 		IncomePerClick();
 	}
 
+	public void Change()                                                                            //‘ункци€, котора€ срабатывает при изменении количества ресурсов или при улучшении
+	{
+		OnChange?.Invoke();
+		UpdateData();
+	}
+
+	public void UpdateData()                                                                        //‘ункци€, котора€ обновл€ет значени€ получаемых ресурсов
+	{
+		IncomeWater.IncomePerSecondValue = CurrentLevel.IncomePerSecondValue;
+		IncomeWater.IncomePerClickValue = CurrentLevel.IncomePerClickValue;
+	}
 
 	void Update()                                                                                   //‘ункци€, срабатывающа€ каждый кадр, котора€ отвечает за работу таймера
 	{
