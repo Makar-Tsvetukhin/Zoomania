@@ -21,7 +21,7 @@ public class AnimalAI : MonoBehaviour
 	public bool IsDoAction = false;
 
 	// Стартовая функция
-	void Start()
+	public void Start()
 	{
 		RandomActions();
 

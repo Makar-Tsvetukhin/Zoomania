@@ -29,14 +29,14 @@ public class IncomeResource																//Класс, который отвечает за получени
 
 	public void IncomePerSecond()															//Функция, которая срабатывает при пассивном получении ресурсов (через каждое N количество секунд)
 	{
-		Resource.SetValue(IncomePerSecondValue * 3);
+		Resource.SetValue(IncomePerSecondValue * 3, true);
 		ResourceTimer.ResetTimer(false);
 		OnIncomePerSecond?.Invoke();
 	}
 
 	public void IncomePerClick()                                                            //Функция, которая срабатывает при активном получении ресурсов (При каждом нажатии)
 	{
-		Resource.SetValue(IncomePerClickValue);
+		Resource.SetValue(IncomePerClickValue, true);
 		OnIncomePerClick?.Invoke();
 	}
 

@@ -16,9 +16,10 @@ public class IntStorage												//Класс для хранения значений типа int
 		CurrentValue = value;
 	}
 
-	public void SetValue(int value)										//Изменить значение
+	public void SetValue(int value, bool plus)										//Изменить значение
 	{
-		CurrentValue += value;
+		if (plus) CurrentValue += value;
+		else CurrentValue -= value;
 	}
 
 	public int GetValue()												//Получить значение
