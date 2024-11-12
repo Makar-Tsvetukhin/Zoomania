@@ -8,15 +8,15 @@ public class UIMoney : MonoBehaviour
 {
 	public GameObject Animal;
 	public TextMeshProUGUI Text;
-	public AnimalMoney animalmoneyscript;
+	public MoneyPerClick animalmoneyscript;
 
 	void Start()
 	{
-		Animal = GameObject.Find("Панда");
+		Animal = GameObject.Find("Деньги");
 		Text = this.gameObject.GetComponent<TextMeshProUGUI>();
-		Text.text += animalmoneyscript.IncomeMoney.Resource.GetValue().ToString();
+		Text.text += " 0";
 
-		animalmoneyscript = Animal.GetComponent<AnimalMoney>();
+		animalmoneyscript = Animal.GetComponent<MoneyPerClick>();
 		animalmoneyscript.OnChange += UpdateUI;
 	}
 
@@ -25,7 +25,7 @@ public class UIMoney : MonoBehaviour
 		if (Animal == null)
 		{
 			Animal = GameObject.Find("Панда");
-			animalmoneyscript = Animal.GetComponent<AnimalMoney>();
+			animalmoneyscript = Animal.GetComponent<MoneyPerClick>();
 		}
 		Text.text = $"Количество монет: {animalmoneyscript.IncomeMoney.Resource.GetValue()}";
 	}

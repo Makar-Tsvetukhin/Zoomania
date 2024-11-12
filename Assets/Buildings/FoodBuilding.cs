@@ -7,10 +7,9 @@ using UnityEngine.EventSystems;
 public class FoodBuilding : MonoBehaviour, IPointerClickHandler                                     // ласс, который прикрепл€етс€ к кормушке
 																									//ѕо идее работает, но нужно сделать систему уровней из которой будут братьс€ значени€ дл€ количества ресурсов в секунду и при нажатии
 {
+	public IncomeResource IncomeFood = new IncomeResource(1, 1);                                    //ѕеременна€ отвечающа€ за получение ресурсов
 
 	public Level CurrentLevel = new Level(1, 1, 1, 1);                                              //ѕеременна€ отвечающа€ за уровень и количество получаемых ресурсов
-
-	public IncomeResource IncomeFood = new IncomeResource(1, 1);                                    //ѕеременна€ отвечающа€ за получение ресурсов
 
 	public event Action OnChange;
 
@@ -26,8 +25,7 @@ public class FoodBuilding : MonoBehaviour, IPointerClickHandler                 
 
 	public void IncomePerSecond()                                                                   //‘ункци€, котора€ срабатывает при пассивном получении ресурсов (через каждое N количество секунд)
 	{
-	
-		//Debug.Log($" оличество еды: {IncomeFood.Resource.GetValue()}");
+		
 	}
 
 	public void IncomePerClick()                                                                    //‘ункци€, котора€ срабатывает при активном получении ресурсов (ѕри каждом нажатии)
@@ -54,7 +52,7 @@ public class FoodBuilding : MonoBehaviour, IPointerClickHandler                 
 
 	public int GetData()
 	{
-		return IncomeFood.Resource.CurrentValue;
+		return IncomeFood.Resource.GetValue();
 	}
 
 	public void UpdateData()                                                                        //‘ункци€, котора€ обновл€ет значени€ получаемых ресурсов
