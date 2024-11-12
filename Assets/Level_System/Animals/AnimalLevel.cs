@@ -20,9 +20,9 @@ namespace Animal
 		public int FoodForUpgrade { get; set; }
 
 
-		public AnimalLevel(int requiredwater, int requiredfood, int moneyperclick, int moneypersecond, int waterforupgrade, int foodforupgrade)
+		public AnimalLevel(int levelnumber, int requiredwater, int requiredfood, int moneyperclick, int moneypersecond, int waterforupgrade, int foodforupgrade)
 		{
-			CurrentLevelNumber = 1;
+			CurrentLevelNumber = levelnumber;
 			RequiredWater = requiredwater;
 			RequiredFood = requiredfood;
 			MoneyPerClick = moneyperclick;
@@ -31,7 +31,7 @@ namespace Animal
 			FoodForUpgrade = foodforupgrade;
 		}
 
-		public void Upgrade()
+		/*public void Upgrade()
 		{
 			if (CurrentLevelNumber == 4) return;
 
@@ -42,6 +42,6 @@ namespace Animal
 			MoneyPerSecond += 1;
 			WaterForUpgrade *= 2;
 			FoodForUpgrade *= 2;
-		}
+		}*/
 	}
 }

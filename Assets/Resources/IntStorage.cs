@@ -22,6 +22,11 @@ public class IntStorage												//Класс для хранения значений типа int
 		else CurrentValue -= value;
 	}
 
+	public void ChangeValue(int value)
+	{
+		CurrentValue = value;
+	}
+
 	public int GetValue()												//Получить значение
 	{
 		return CurrentValue;

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,10 +7,14 @@ using UnityEngine.EventSystems;
 public class Barn : MonoBehaviour, IPointerClickHandler
 {
 	public GameObject Animal;
-	public IntStorage ClicksToSpawn { get; set; }
-	public int MaxClicksToSpawn { get; set; } = 10;
-	public int ClicksValueChange { get; set; } = 2;
 
+	public List<GameObject> Animals = new List<GameObject>();
+	public IntStorage ClicksToSpawn { get; set; }
+	public int MaxClicksToSpawn { get; set; } = 2;
+	public int ClicksValueChange { get; set; } = 2;
+	public int AnimalCount { get; set; } = 0;
+
+	public event Action Spawn;
 
 	public void Start()
 	{
@@ -24,8 +29,11 @@ public class Barn : MonoBehaviour, IPointerClickHandler
 
 	public void SpawnAnimal()
 	{
-		Instantiate(Animal);
+		Animals.Add(Instantiate(Animal));
+		AnimalCount++;
 		MaxClicksToSpawn *= ClicksValueChange;
 		ClicksToSpawn.SetValue(MaxClicksToSpawn, true);
+
+		Spawn?.Invoke();
 	}
 }

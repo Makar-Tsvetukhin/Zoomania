@@ -25,7 +25,7 @@ public class WaterBuilding : MonoBehaviour, IPointerClickHandler                
 
 	public void IncomePerSecond()                                                                   //Функция, которая срабатывает при пассивном получении ресурсов (через каждое N количество секунд)
 	{
-		//Debug.Log($"Количество воды: {IncomeWater.Resource.GetValue()}");
+		
 	}
 
 	public void IncomePerClick()                                                                    //Функция, которая срабатывает при активном получении ресурсов (При каждом нажатии)
