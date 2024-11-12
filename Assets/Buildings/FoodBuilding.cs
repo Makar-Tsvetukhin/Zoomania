@@ -46,6 +46,17 @@ public class FoodBuilding : MonoBehaviour, IPointerClickHandler                 
 		OnChange?.Invoke();
 		UpdateData();
 	}
+
+	public void SetData(int foodcount)
+	{
+		IncomeFood.Resource.SetValue(foodcount, false);
+	}
+
+	public int GetData()
+	{
+		return IncomeFood.Resource.CurrentValue;
+	}
+
 	public void UpdateData()                                                                        //Функция, которая обновляет значения получаемых ресурсов
 	{
 		IncomeFood.IncomePerSecondValue = CurrentLevel.IncomePerSecondValue;

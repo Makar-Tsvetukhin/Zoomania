@@ -8,9 +8,10 @@ using UnityEngine;
 
 namespace Animal
 {
-	public class Level
+	public class AnimalLevel
 	{
-		public int ClicksToCreate { get; set; }
+		public int CurrentLevelNumber { get; set; }
+
 		public int RequiredWater { get; set; }
 		public int RequiredFood { get; set; }
 		public int MoneyPerClick { get; set; }
@@ -18,9 +19,10 @@ namespace Animal
 		public int WaterForUpgrade { get; set; }
 		public int FoodForUpgrade { get; set; }
 
-		public Level(int clikstocreate, int requiredwater, int requiredfood, int moneyperclick, int moneypersecond, int waterforupgrade, int foodforupgrade)
+
+		public AnimalLevel(int requiredwater, int requiredfood, int moneyperclick, int moneypersecond, int waterforupgrade, int foodforupgrade)
 		{
-			ClicksToCreate = clikstocreate;
+			CurrentLevelNumber = 1;
 			RequiredWater = requiredwater;
 			RequiredFood = requiredfood;
 			MoneyPerClick = moneyperclick;
@@ -29,5 +31,17 @@ namespace Animal
 			FoodForUpgrade = foodforupgrade;
 		}
 
+		public void Upgrade()
+		{
+			if (CurrentLevelNumber == 4) return;
+
+			CurrentLevelNumber++;
+			RequiredWater += 4;
+			RequiredFood += 4;
+			MoneyPerClick += 2;
+			MoneyPerSecond += 1;
+			WaterForUpgrade *= 2;
+			FoodForUpgrade *= 2;
+		}
 	}
 }

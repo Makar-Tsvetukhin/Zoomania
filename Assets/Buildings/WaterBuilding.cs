@@ -45,6 +45,16 @@ public class WaterBuilding : MonoBehaviour, IPointerClickHandler                
 		UpdateData();
 	}
 
+	public void SetData(int watercount)
+	{
+		IncomeWater.Resource.SetValue(watercount, false);
+	}
+
+	public int GetData()
+	{
+		return IncomeWater.Resource.GetValue();
+	}
+
 	public void UpdateData()                                                                        //Функция, которая обновляет значения получаемых ресурсов
 	{
 		IncomeWater.IncomePerSecondValue = CurrentLevel.IncomePerSecondValue;

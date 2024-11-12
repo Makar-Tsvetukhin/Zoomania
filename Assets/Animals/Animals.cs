@@ -8,48 +8,56 @@ namespace Animal
 {
     public class Animals : MonoBehaviour
     {
+        public AnimalLevel CurrentLevel { get; private set; }
 
-		/*public int ClicksToCreate { get; set; }
-        public int RequiredWater { get; set; }
-        public int RequiredFood { get; set; }
-        public int MoneyPerClick { get; set; }
-        public int MoneyPerSecond { get; set; }
-        public int WaterForUpgrade { get; set; }
-        public int FoodForUpgrade { get; set; }
+		public GameObject WaterBuilding;
 
+		public WaterBuilding waterbuildingscript;
 
-        LevelStorage storage = new LevelStorage();
+		public GameObject FoodBuilding;
 
-
-		public int CurrentLevelNumber = 0;
-        private Level CurrentLevel;
-
-		public ResourceWater CurrentWater;
-		public ResourceFood CurrentFood;
+		public FoodBuilding foodbuildingscript;
+        public Timer UpgradeTime { get; private set; }
 
 
-
-		void Start()
+		public void Start()
         {
-			CurrentLevel = storage.GetLevel(CurrentLevelNumber-1);
-            Debug.Log(CurrentLevel.WaterForUpgrade);
-			Debug.Log(CurrentWater.GetResourcesCount());
-			Upgrade();
-        }
+            CurrentLevel = new AnimalLevel(1, 1, 1, 1, 1, 1);
 
+			WaterBuilding = GameObject.Find("Поилка");
+			waterbuildingscript = WaterBuilding.GetComponent<WaterBuilding>();
+			waterbuildingscript.OnChange += UpdateData;
+
+			FoodBuilding = GameObject.Find("Кормушка");
+			foodbuildingscript = FoodBuilding.GetComponent<FoodBuilding>();
+			foodbuildingscript.OnChange += UpdateData;
+
+            UpgradeTime = new Timer(5);
+            UpgradeTime.OnTimerEnd += Upgrade;
+		}
+
+        public void UpdateData()
+        {
+            waterbuildingscript = WaterBuilding.GetComponent<WaterBuilding>();
+            foodbuildingscript = FoodBuilding.GetComponent<FoodBuilding>();
+		}
 
         public void Upgrade()
         {
-            if (CurrentLevelNumber == 4) return;
+            if (waterbuildingscript.GetData() < CurrentLevel.WaterForUpgrade || foodbuildingscript.GetData() < CurrentLevel.FoodForUpgrade) return;
 
-            if (CurrentWater.GetResourcesCount() - CurrentLevel.WaterForUpgrade >= 0 && CurrentFood.GetResourcesCount() - CurrentLevel.FoodForUpgrade >= 0)
-            {
-                Debug.Log($"Панда улучшена до {CurrentLevelNumber+1} уровня");
-                CurrentLevelNumber++;
-                CurrentLevel = storage.GetLevel(CurrentLevelNumber - 1);
-                Debug.Log(CurrentLevel.WaterForUpgrade);
-            }
-            else Debug.Log("Недостаточно ресурсов");
-        }*/
-    }
+            waterbuildingscript.SetData(CurrentLevel.WaterForUpgrade);
+            foodbuildingscript.SetData(CurrentLevel.FoodForUpgrade);
+
+            CurrentLevel.Upgrade();
+            UpgradeTime.ResetTimer(false);
+            Debug.Log($"Мой уровень поднялся до {CurrentLevel.CurrentLevelNumber}");
+            Debug.Log($"Требуемое количество воды стало: {CurrentLevel.WaterForUpgrade}");
+        }
+
+		public void Update()
+		{
+            if (CurrentLevel.CurrentLevelNumber < 4 && waterbuildingscript.GetData() >= CurrentLevel.WaterForUpgrade && foodbuildingscript.GetData() >= CurrentLevel.FoodForUpgrade) UpgradeTime.Tick(Time.deltaTime);
+		}
+	}
 }

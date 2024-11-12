@@ -22,6 +22,11 @@ public class UIMoney : MonoBehaviour
 
 	public void UpdateUI()
 	{
+		if (Animal == null)
+		{
+			Animal = GameObject.Find("Панда");
+			animalmoneyscript = Animal.GetComponent<AnimalMoney>();
+		}
 		Text.text = $"Количество монет: {animalmoneyscript.IncomeMoney.Resource.GetValue()}";
 	}
 }
