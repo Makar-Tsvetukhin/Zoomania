@@ -64,7 +64,7 @@ public class FoodBuilding : MonoBehaviour, IPointerClickHandler                 
 
 	void Update()                                                                                   //Функция, срабатывающая каждый кадр, которая отвечает за работу таймера
 	{
-		IncomeFood.Update();
+		IncomeFood.Update(Time.deltaTime);
 	}
 
 }

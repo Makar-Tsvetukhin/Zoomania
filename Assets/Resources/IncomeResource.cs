@@ -21,7 +21,7 @@ public class IncomeResource																//Класс, который отвечает за получени
 		IncomePerSecondValue = incomepersecondvalue;
 		IncomePerClickValue = incomeperclickvalue;
 
-		ResourceTimer = new Timer(3);
+		ResourceTimer = new Timer(5);
 
 		ResourceTimer.OnTimerEnd += IncomePerSecond;
 	}
@@ -29,7 +29,7 @@ public class IncomeResource																//Класс, который отвечает за получени
 
 	public void IncomePerSecond()															//Функция, которая срабатывает при пассивном получении ресурсов (через каждое N количество секунд)
 	{
-		Resource.SetValue(IncomePerSecondValue * 3, true);
+		Resource.SetValue(IncomePerSecondValue * 5, true);
 		ResourceTimer.ResetTimer(false);
 		OnIncomePerSecond?.Invoke();
 	}
@@ -40,9 +40,9 @@ public class IncomeResource																//Класс, который отвечает за получени
 		OnIncomePerClick?.Invoke();
 	}
 
-	public void Update()																	//Функция, срабатывающая каждый кадр, которая отвечает за работу таймера
+	public void Update(float time)																	//Функция, срабатывающая каждый кадр, которая отвечает за работу таймера
 	{
-		ResourceTimer.Tick(Time.deltaTime);
+		ResourceTimer.Tick(time);
 		OnTick?.Invoke();
 	}
 }

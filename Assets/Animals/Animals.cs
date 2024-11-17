@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.ConstrainedExecution;
@@ -16,7 +17,8 @@ namespace Animal
         public List<AnimalLevel> levels = new List<AnimalLevel>();
 
 
-        public AnimalLevel CurrentLevel { get; private set; }
+		public IncomeResource IncomeMoney;
+		public AnimalLevel CurrentLevel { get; private set; }
 
 		public GameObject WaterBuilding;
 
@@ -26,6 +28,12 @@ namespace Animal
 
 		public FoodBuilding foodbuildingscript;
         public Timer UpgradeTime { get; private set; }
+        public Timer Eating { get; private set; }
+
+
+
+		public event Action OnChange;
+        public event Action LevelUp;
 
 
 		public void Start()
@@ -33,6 +41,8 @@ namespace Animal
             InitializeLevels();
 
             CurrentLevel = levels[0];
+
+            IncomeMoney = new IncomeResource(CurrentLevel.MoneyPerSecond, CurrentLevel.MoneyPerClick);
 
 			WaterBuilding = GameObject.Find("Поилка");
 			waterbuildingscript = WaterBuilding.GetComponent<WaterBuilding>();
@@ -44,6 +54,10 @@ namespace Animal
 
             UpgradeTime = new Timer(5);
             UpgradeTime.OnTimerEnd += Upgrade;
+
+            Eating = new Timer(7);
+            Eating.OnTimerEnd += Eat;
+            Eating.OnTimerEnd += Drink;
 		}
 
 		public void InitializeLevels()
@@ -60,6 +74,28 @@ namespace Animal
             foodbuildingscript = FoodBuilding.GetComponent<FoodBuilding>();
 		}
 
+        public void Eat()
+        {
+            if (CurrentLevel.RequiredFood > foodbuildingscript.GetData()) Debug.Log("Недостаточно еды");
+            else
+            {
+                foodbuildingscript.SetData(CurrentLevel.RequiredFood);
+                Debug.Log("я поел");
+            }
+		}
+
+        public void Drink()
+        {
+            if (CurrentLevel.RequiredWater > waterbuildingscript.GetData()) Debug.Log("Недостаточно воды");
+            else
+            {
+                waterbuildingscript.SetData(CurrentLevel.RequiredWater);
+                Debug.Log("я попил");
+            }
+
+			Eating.ResetTimer(false);
+		}
+
         public void Upgrade()
         {
             if (waterbuildingscript.GetData() < CurrentLevel.WaterForUpgrade || foodbuildingscript.GetData() < CurrentLevel.FoodForUpgrade) return;
@@ -68,12 +104,20 @@ namespace Animal
             foodbuildingscript.SetData(CurrentLevel.FoodForUpgrade);
 
             CurrentLevel = levels[CurrentLevel.CurrentLevelNumber];
+
+            IncomeMoney.IncomePerSecondValue = CurrentLevel.MoneyPerSecond;
+            IncomeMoney.IncomePerClickValue = CurrentLevel.MoneyPerClick;
+
             UpgradeTime.ResetTimer(false);
             Debug.Log($"Данные моего нового уровня: {CurrentLevel.RequiredWater}, {CurrentLevel.RequiredFood}, {CurrentLevel.MoneyPerClick}, {CurrentLevel.MoneyPerSecond}, {CurrentLevel.WaterForUpgrade}, {CurrentLevel.FoodForUpgrade}");
+
+            LevelUp?.Invoke();
         }
 
 		public void Update()
 		{
+            IncomeMoney.Update(Time.deltaTime);
+            Eating.Tick(Time.deltaTime);
             if (CurrentLevel.CurrentLevelNumber < 4 && waterbuildingscript.GetData() >= CurrentLevel.WaterForUpgrade && foodbuildingscript.GetData() >= CurrentLevel.FoodForUpgrade) UpgradeTime.Tick(Time.deltaTime);
 		}
 	}

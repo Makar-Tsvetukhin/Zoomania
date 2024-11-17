@@ -31,9 +31,9 @@ public class Barn : MonoBehaviour, IPointerClickHandler
 	{
 		Animals.Add(Instantiate(Animal));
 		AnimalCount++;
-		MaxClicksToSpawn *= ClicksValueChange;
+		MaxClicksToSpawn += ClicksValueChange;
 		ClicksToSpawn.SetValue(MaxClicksToSpawn, true);
-
+		
 		Spawn?.Invoke();
 	}
 }
