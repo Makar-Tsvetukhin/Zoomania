@@ -63,7 +63,7 @@ public class WaterBuilding : MonoBehaviour, IPointerClickHandler                
 
 	void Update()                                                                                   //Функция, срабатывающая каждый кадр, которая отвечает за работу таймера
 	{
-		IncomeWater.Update();
+		IncomeWater.Update(Time.deltaTime);
 	}
 
 

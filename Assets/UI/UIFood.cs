@@ -12,7 +12,7 @@ public class UIFood : MonoBehaviour
 
 	void Start()
 	{
-		FoodBuilding = GameObject.Find("Кормушка");
+		FoodBuilding = GameObject.FindGameObjectWithTag("FoodBuilding");
 		Text = this.gameObject.GetComponent<TextMeshProUGUI>();
 		Text.text += foodbuildingscript.IncomeFood.Resource.GetValue().ToString();
 

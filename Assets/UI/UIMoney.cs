@@ -6,27 +6,23 @@ using UnityEngine;
 
 public class UIMoney : MonoBehaviour
 {
-	public GameObject Animal;
+	public GameObject MoneyPerClick;
 	public TextMeshProUGUI Text;
 	public MoneyPerClick animalmoneyscript;
 
-	void Start()
+	public void Start()
 	{
-		Animal = GameObject.Find("Деньги");
+		MoneyPerClick = GameObject.Find("Деньги");
 		Text = this.gameObject.GetComponent<TextMeshProUGUI>();
 		Text.text += " 0";
 
-		animalmoneyscript = Animal.GetComponent<MoneyPerClick>();
+		animalmoneyscript = MoneyPerClick.GetComponent<MoneyPerClick>();
 		animalmoneyscript.OnChange += UpdateUI;
+		Debug.Log("я обновляюсь");
 	}
 
 	public void UpdateUI()
 	{
-		if (Animal == null)
-		{
-			Animal = GameObject.Find("Панда");
-			animalmoneyscript = Animal.GetComponent<MoneyPerClick>();
-		}
 		Text.text = $"Количество монет: {animalmoneyscript.IncomeMoney.Resource.GetValue()}";
 	}
 }

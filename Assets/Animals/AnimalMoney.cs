@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class AnimalMoney : MonoBehaviour
+public class AnimalMoney : MonoBehaviour															//Этот класс пока не используется
 {
 	public Level CurrentLevel = new Level(1, 1, 1, 1);                                              //Переменная отвечающая за уровень и количество получаемых ресурсов
 
@@ -31,6 +31,6 @@ public class AnimalMoney : MonoBehaviour
 
 	void Update()                                                                                   //Функция, срабатывающая каждый кадр, которая отвечает за работу таймера
 	{
-		IncomeMoney.Update();
+		IncomeMoney.Update(Time.deltaTime);
 	}
 }
