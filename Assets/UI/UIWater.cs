@@ -13,10 +13,9 @@ public class UIWater : MonoBehaviour
 	void Start()
 	{
 		WaterBuilding = GameObject.FindGameObjectWithTag("WaterBuilding");
+		waterbuildingscript = WaterBuilding.GetComponent<WaterBuilding>();
 		Text = this.gameObject.GetComponent<TextMeshProUGUI>();
 		Text.text += waterbuildingscript.IncomeWater.Resource.GetValue().ToString();
-
-		waterbuildingscript = WaterBuilding.GetComponent<WaterBuilding>();
 		waterbuildingscript.OnChange += UpdateUI;
 	}
 

@@ -44,11 +44,11 @@ namespace Animal
 
             IncomeMoney = new IncomeResource(CurrentLevel.MoneyPerSecond, CurrentLevel.MoneyPerClick);
 
-			WaterBuilding = GameObject.Find("Поилка");
+			WaterBuilding = GameObject.FindGameObjectWithTag("WaterBuilding");
 			waterbuildingscript = WaterBuilding.GetComponent<WaterBuilding>();
 			waterbuildingscript.OnChange += UpdateData;
 
-			FoodBuilding = GameObject.Find("Кормушка");
+			FoodBuilding = GameObject.FindGameObjectWithTag("FoodBuilding");
 			foodbuildingscript = FoodBuilding.GetComponent<FoodBuilding>();
 			foodbuildingscript.OnChange += UpdateData;
 
@@ -117,7 +117,7 @@ namespace Animal
 		public void Update()
 		{
             IncomeMoney.Update(Time.deltaTime);
-            Eating.Tick(Time.deltaTime);
+            if (CurrentLevel.RequiredWater <= waterbuildingscript.GetData() && CurrentLevel.RequiredFood <= foodbuildingscript.GetData()) Eating.Tick(Time.deltaTime);
             if (CurrentLevel.CurrentLevelNumber < 4 && waterbuildingscript.GetData() >= CurrentLevel.WaterForUpgrade && foodbuildingscript.GetData() >= CurrentLevel.FoodForUpgrade) UpgradeTime.Tick(Time.deltaTime);
 		}
 	}

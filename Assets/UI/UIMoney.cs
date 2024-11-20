@@ -12,13 +12,12 @@ public class UIMoney : MonoBehaviour
 
 	public void Start()
 	{
-		MoneyPerClick = GameObject.Find("ƒеньги");
+		MoneyPerClick = GameObject.FindGameObjectWithTag("Money");
+		animalmoneyscript = MoneyPerClick.GetComponent<MoneyPerClick>();
 		Text = this.gameObject.GetComponent<TextMeshProUGUI>();
 		Text.text += " 0";
 
-		animalmoneyscript = MoneyPerClick.GetComponent<MoneyPerClick>();
 		animalmoneyscript.OnChange += UpdateUI;
-		Debug.Log("€ обновл€юсь");
 	}
 
 	public void UpdateUI()
