@@ -13,10 +13,9 @@ public class UIFood : MonoBehaviour
 	void Start()
 	{
 		FoodBuilding = GameObject.FindGameObjectWithTag("FoodBuilding");
+		foodbuildingscript = FoodBuilding.GetComponent<FoodBuilding>();
 		Text = this.gameObject.GetComponent<TextMeshProUGUI>();
 		Text.text += foodbuildingscript.IncomeFood.Resource.GetValue().ToString();
-
-		foodbuildingscript = FoodBuilding.GetComponent<FoodBuilding>();
 		foodbuildingscript.OnChange += UpdateUI;
 	}
 

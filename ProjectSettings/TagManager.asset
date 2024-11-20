@@ -8,6 +8,7 @@ TagManager:
   - FoodBuilding
   - Barn
   - Panda
+  - Money
   layers:
   - Default
   - TransparentFX
